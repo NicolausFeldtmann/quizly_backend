@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 class QuizzModel(models.Model):
     title = models.CharField(max_length=50, blank=True, default="")
     description = models.TextField(blank=True, default="")
+    transcript = models.TextField(blank=True, default="")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     video_url = models.URLField(max_length=200)
