@@ -16,7 +16,7 @@ def extract_youtube_info(url):
     }
 
     try:
-        with yt_dlp.YouTubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, downloaded=False)
 
             return {
@@ -43,7 +43,7 @@ def transcribe_yt_video(url):
             "no_warnings": True,
         }
 
-        with yt_dlp.YouTubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
         audio_file = os.path.join(temp_dir, "audio.mp3")

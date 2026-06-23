@@ -5,11 +5,17 @@ from quizzes_app.utils import extract_youtube_info, transcribe_yt_video
 
 class QuizzSeriazlizer(serializers.ModelSerializer):
     url = serializers.URLField(write_only=True, required=False)
+    video_url = serializers.URLField(required=False)
 
     class Meta:
         model = QuizzModel
         fields = ["id", "title", "description", "transcript", "created_at", "updated_at", "video_url", "url"]
         read_only_fields = ["id", "created_at", "updated_at", "transcript"]
+
+    def validate(self, attrs):
+        if 'url' in attrs and 'video_url' not in attrs:
+            attrs['video_url'] = attrs['url']
+        return attrs
 
     def create(self, validated_data):
         if 'url' in validated_data:
@@ -25,10 +31,10 @@ class QuizzSeriazlizer(serializers.ModelSerializer):
                 validated_data['description'] = ''
 
             try:
-                transcipt = transcribe_yt_video(url)
-                validated_data['transcipt'] = transcript
+                transcript = transcribe_yt_video(url)
+                validated_data['transcript'] = transcript
             except Exception as e:
-                print(f"Transcription error: {str(e)}")
+                print(f"Transciption error: {str(e)}")
                 validated_data['transcript'] = f"Transciption failed: {str(e)}"
 
         return super().create(validated_data)
