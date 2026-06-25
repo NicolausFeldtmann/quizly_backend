@@ -2,12 +2,13 @@ from rest_framework import status, generics
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from .serializers import QuizzSeriazlizer
+from .serializers import QuizzSerializer
 from quizzes_app.models import QuizzModel, QuestionsModel
 
 class QuizzListCreateView(generics.ListCreateAPIView):
     queryset = QuizzModel.objects.all()
-    serializer_class = QuizzSeriazlizer
+    serializer_class = QuizzSerializer
+    permissions_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

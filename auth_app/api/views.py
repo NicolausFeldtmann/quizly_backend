@@ -25,6 +25,7 @@ class RegistrationView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CookieTokenObtainPairView(TokenObtainPairView):
+    permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
@@ -35,7 +36,7 @@ class CookieTokenObtainPairView(TokenObtainPairView):
             key="access_token",
             value=access,
             httponly=True,
-            secure=True,
+            secure=False,
             samesite="Lax"
         )
 
@@ -43,13 +44,14 @@ class CookieTokenObtainPairView(TokenObtainPairView):
             key="refresh_token",
             value=refresh,
             httponly=True,
-            secure=True,
+            secure=False,
             samesite="Lax"
         )
         response.data = {"message": "Login successfull."}
         return response
 
 class CookieRefreshView(TokenRefreshView):
+    permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
         refresh_token = request.COOKIES.get("refresh_token")
@@ -76,7 +78,7 @@ class CookieRefreshView(TokenRefreshView):
             key="access_token",
             value=access_token,
             httponly=True,
-            secure=True,
+            secure=False,
             samesite="Lax"
         )
         return response
