@@ -16,11 +16,11 @@ def extract_youtube_info(url):
         "format": "bestaudio/best",
         "quiet": True,
         "noplaylist": True,
-        "no_warnigs": True
+        "no_warnings": True
     }
 
     try:
-        with yt_dlp.YouTubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, downloaded=False)
 
             return {
@@ -68,6 +68,7 @@ def transcribe_yt_video(url):
             shutil.rmtree(temp_dir)
 
 def generate_quiz(transcript):
+
     try:
         client = genai.Client(api_key=os.getenv('GOOGLE_API_KEY'))
 
@@ -105,16 +106,17 @@ def generate_quiz(transcript):
         )
 
         response_text = response.text.strip()
-
+        
         if response_text.startswith("```json"):
-            response_text = response_text[7:] 
+            response_text = response_text[7:]  
         elif response_text.startswith("```"):
-            response_text = response_text[3:] 
+            response_text = response_text[3:]  
             
         if response_text.endswith("```"):
             response_text = response_text[:-3]  
+            
         response_text = response_text.strip()
-        
+
         print("Cleaned API Response:")
         print(response_text[:500])  
         
@@ -127,7 +129,7 @@ def generate_quiz(transcript):
 
     except json.JSONDecodeError as e:
         print(f"JSON Decode Error: {str(e)}")
-        print(f"Response text: {response_text[:1000]}") 
+        print(f"Response text: {response_text[:1000]}")  # Print more context
         raise ValidationError(f"Error parsing quiz JSON: {str(e)}")
     except Exception as e:
         print(f"General Error: {str(e)}")
