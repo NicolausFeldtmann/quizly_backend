@@ -16,10 +16,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
             }
         }
 
-    def validate_repeated_password(self, value):
+    def validate_confirmed_password(self, value):
         password = self.initial_data.get('password')
         if password and value and password != value:
-            raise serializers.ValidationError('Password do not match.')
+            raise serializers.ValidationError('Password do not match')
         return value
 
     def validate_email(self, value):

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class QuizzModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='quizzes', default="")
     title = models.CharField(max_length=50, blank=True, default="")
     description = models.TextField(blank=True, default="")
     transcript = models.TextField(blank=True, default="")

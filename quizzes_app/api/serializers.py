@@ -17,8 +17,8 @@ class QuizzSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = QuizzModel
-        fields = ["id", "title", "description", "transcript", "created_at", "updated_at", "video_url", "url", "questions"]
-        read_only_fields = ["id", "created_at", "updated_at", "transcript", "questions"]
+        fields = ["id", "title", "description", "created_at", "updated_at", "video_url", "url", "questions"]
+        read_only_fields = ["id", "created_at", "updated_at", "questions"]
 
     def validate(self, attrs):
         if 'url' in attrs and 'video_url' not in attrs:
@@ -67,3 +67,10 @@ class SingleQuizzSerializer(serializers.ModelSerializer):
         model = QuizzModel
         fields = ["id", "title", "description", "transcript", "created_at", "updated_at", "video_url", "questions"]
         read_onlyFields = ["id", "created_at", "updated_at", "transcript", "questions"]
+
+class UpdateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = QuizzModel
+        fields = ["id", "title", "description"]
+        read_only_fields = ["id"]

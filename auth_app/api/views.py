@@ -20,7 +20,7 @@ class RegistrationView(APIView):
                 'email': saved_account.email,
                 'user_id': saved_account.pk
             }
-            return Response(data)
+            return Response(data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -36,7 +36,7 @@ class CookieTokenObtainPairView(TokenObtainPairView):
             key="access_token",
             value=access,
             httponly=True,
-            secure=False,
+            secure=True,
             samesite="Lax"
         )
 
@@ -44,7 +44,7 @@ class CookieTokenObtainPairView(TokenObtainPairView):
             key="refresh_token",
             value=refresh,
             httponly=True,
-            secure=False,
+            secure=True,
             samesite="Lax"
         )
         response.data = {"message": "Login successfull."}
@@ -65,7 +65,7 @@ class CookieRefreshView(TokenRefreshView):
         serializer = self.get_serializer(data={"refresh": refresh_token})
 
         try:
-            serializer.is_valid(raise_esception=True)
+            serializer.is_valid(raise_exception=True)
         except:
             return Response(
                 {"detail": "Refresh token invalid!"},
@@ -73,7 +73,7 @@ class CookieRefreshView(TokenRefreshView):
             )
 
         access_token = serializer.validated_data.get("access")
-        response = Response({"message": "Acces token reffreshed!"})
+        response = Response({"detail": "Token refreshed!"})
         response.set_cookie(
             key="access_token",
             value=access_token,
@@ -84,10 +84,10 @@ class CookieRefreshView(TokenRefreshView):
         return response
 
 class LogoutView(APIView):
-    permissions_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        response = Response({"message": "Logged out successfully"}, status=status.HTTP_200_OK)
+        response = Response({"detail": "Log-Out successfully! All Tokens will be deleted. Refresh token is now invalid."}, status=status.HTTP_200_OK)
         response.delete_cookie("access_token", path="/")
         response.delete_cookie("refresh_token", path="/")
         return response

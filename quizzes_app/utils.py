@@ -21,7 +21,7 @@ def extract_youtube_info(url):
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, downloaded=False)
+            info = ydl.extract_info(url, download=False)
 
             return {
                 "title": info.get("title", ""),
@@ -55,7 +55,7 @@ def transcribe_yt_video(url):
             raise ValidationError("Failed to extract audio.")
 
         model = whisper.load_model("base")
-        result = model.transcribe(audio_file, language="de")
+        result = model.transcribe(audio_file, language="en")
 
         return result["text"]
 
