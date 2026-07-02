@@ -1,6 +1,7 @@
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 
 class IsOwnerOrAdmin(BasePermission):
+    """Custom permission class to grant dedicated rigths."""
 
     def has_permission(self, request, view):
         return request.user and request.user.is_authenticated

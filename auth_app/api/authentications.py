@@ -2,7 +2,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 
 class CookieAuthentication(JWTAuthentication):
-
+    """Custom authentication class. Necessary to identify user as quiz author in quizzes_app."""
     def authenticate(self, request):
         access_token = request.COOKIES.get('access_token')
 
