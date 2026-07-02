@@ -17,11 +17,6 @@ def extract_youtube_info(url):
     """Function to extract title, description and audio of YouTube clip."""
     """Sets format of audio and parameter to handle extraction."""
 
-    # try:
-    #     url = normalize_yt_url(url)
-    # except ValidationError as e:
-    #     raise ValidationError(f"Error normalizing dhort-urls: {str(e)}")
-
     ydl_opts = {
         "format": "bestaudio/best",
         "quiet": True,
@@ -147,8 +142,9 @@ def generate_quiz(transcript):
 
 def normalize_yt_url(url):
     video_id_pattern = r'(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)'
-
     match = re.search(video_id_pattern, url)
+    if not match:
+        raise ValidationError("Invalid YouTube url")
     video_id = match.group(1)
     return f"https://www.youtube.com/watch?v={video_id}"
     

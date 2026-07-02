@@ -68,9 +68,7 @@ class CookieRefreshView(TokenRefreshView):
                 {"detail": "Refresh token notfound"},
                 status=status.HTTP_401_UNAUTHORIZED
             )
-
         serializer = self.get_serializer(data={"refresh": refresh_token})
-
         try:
             serializer.is_valid(raise_exception=True)
         except:
@@ -78,7 +76,6 @@ class CookieRefreshView(TokenRefreshView):
                 {"detail": "Refresh token invalid!"},
                 status=status.HTTP_401_UNAUTHORIZED
             )
-
         access_token = serializer.validated_data.get("access")
         response = Response({"detail": "Token refreshed!"})
         response.set_cookie(
