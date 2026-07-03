@@ -42,17 +42,22 @@ quizly_backend is a Python-based server application designed to manage quiz deli
 ## ⚡ Quick Start
 
 ```bash
-
 # 1. Clone the repository
 git clone https://github.com/NicolausFeldtmann/coderr_backend.git
 
 # 2. Create & activate a virtualenv
 python -m venv env && source venv/bin/activate
 
-# 3. Install dependencies
+# 3. Install PyTorch first
+# CPU-only (recommended for non-GPU machines):
+#   pip install torch==2.12.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
+# CUDA 13 (GPU):
+#   pip install --index-url https://download.pytorch.org/whl/cu13 torch==2.12.1
+
+# 4. Install the remaining Python dependencies
 pip install -r requirements.txt
 
-# 4. Start project
+# 5. Start project
 python manage.py runserver
 ```
 
@@ -66,9 +71,6 @@ certifi: 2026.6.17
 cffi: 2.0.0
 charset-normalizer: 3.4.7
 cryptography: 49.0.0
-cuda-bindings: 13.3.1
-cuda-pathfinder: 1.5.5
-cuda-toolkit: 13.0.2
 distro: 1.9.0
 Django: 6.0.6
 django-cors-headers: 4.9.0
