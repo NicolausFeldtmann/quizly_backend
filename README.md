@@ -41,23 +41,28 @@ quizly_backend is a Python-based server application designed to manage quiz deli
 
 ## ⚡ Quick Start
 
+> The project is tested with Python 3.12.x. Using a different Python version can lead to dependency resolution errors such as the Triton or Python-version mismatch you saw.
+
 ```bash
 # 1. Clone the repository
-git clone https://github.com/NicolausFeldtmann/coderr_backend.git
+git clone https://github.com/NicolausFeldtmann/quizly_backend.git
 
-# 2. Create & activate a virtualenv
-python -m venv env && source venv/bin/activate
+# 2. Create and activate a virtual environment with Python 3.12
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip setuptools wheel
 
-# 3. Install PyTorch first
-# CPU-only (recommended for non-GPU machines):
-#   pip install torch==2.12.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
+# 3. Install PyTorch first, matching your hardware
+# CPU-only (recommended for most local setups):
+pip install torch==2.12.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 # CUDA 13 (GPU):
 #   pip install --index-url https://download.pytorch.org/whl/cu13 torch==2.12.1
 
 # 4. Install the remaining Python dependencies
 pip install -r requirements.txt
 
-# 5. Start project
+# 5. Apply database migrations and start the project
+python manage.py migrate
 python manage.py runserver
 ```
 
@@ -143,27 +148,32 @@ djangorestframework_simplejwt: 5.5.1
 ## 🛠️ Development Setup
 
 ### Python
-1. Install Python (v3.12+ recommended)
-2. Create a virtual environment:
-3. Activate the environment:
-   - Windows: 
-   - Unix/MacOS: 
-4. Install dependencies:
-6. Start project
+1. Install Python 3.12.x.
+2. Create a virtual environment.
+3. Activate the environment.
+4. Install PyTorch first.
+5. Install the remaining requirements.
+6. Start the project.
 
 - Windows:
-```
-python -m venv env
-venv\Scripts\activate
+```powershell
+py -3.12 -m venv .venv
+.venv\Scripts\activate
+python -m pip install --upgrade pip setuptools wheel
+pip install torch==2.12.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 pip install -r requirements.txt
+python manage.py migrate
 python manage.py runserver
 ```
 
 - Unix/MacOS:
-```
-python -m venv env
-source venv/bin/activate
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip setuptools wheel
+pip install torch==2.12.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 pip install -r requirements.txt
+python manage.py migrate
 python manage.py runserver
 ```
 
@@ -191,4 +201,3 @@ Contributions are welcome! Here's the standard flow:
 Please follow the existing code style and include tests for new behavior where applicable.
 
 ---
-*This README was generated with ❤️ by [ReadmeBuddy](https://readmebuddy.com)*

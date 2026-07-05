@@ -1,8 +1,14 @@
-# Install PyTorch separately before installing this requirements file.
-# CPU-only example:
+# This file assumes Python 3.12.x.
+# Install PyTorch first, matching your hardware and platform.
+# CPU-only example (recommended for most setups):
 #   pip install torch==2.12.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 # CUDA 13 example:
 #   pip install --index-url https://download.pytorch.org/whl/cu13 torch==2.12.1
+#
+# Triton is intentionally not pinned here because its version depends on the
+# Torch build and Python version. Install the matching Torch build first and
+# then install the remaining requirements with:
+#   pip install -r requirements.txt
 
 annotated-types==0.7.0
 anyio==4.14.0
@@ -48,9 +54,7 @@ sqlparse==0.5.5
 sympy==1.14.0
 tenacity==9.1.4
 tiktoken==0.13.0
-torch==2.12.1
 tqdm==4.68.3
-triton==3.7.1
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 urllib3==2.7.0
