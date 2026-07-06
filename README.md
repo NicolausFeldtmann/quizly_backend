@@ -94,7 +94,7 @@ Follow these steps to get the Quizly Backend API up and running on your local ma
     ```
     Configure your environment variables in `.env`. At a minimum, you'll need:
     ```ini
-    GENAI_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at [ai.google.dev](https://ai.google.dev/)
+    GENAI_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at https://ai.google.dev/gemini-api/docs
     SECRET_KEY='your_secret_key_here'
     DEBUG=True for development, False for production
     ```
@@ -157,7 +157,7 @@ Sensitive information and environment-specific settings should be managed via en
 
 | Variable        | Description                                                  | Default      | Required |
 |-----------------|--------------------------------------------------------------|--------------|----------|
-| `GENAI_API_KEY` | Your Google Gemini API Key. (https://ai.google.dev/)         | `None`       | Yes      |
+| `GENAI_API_KEY` | Your Google Gemini API Key. [(ai.google.dev)](https://ai.google.dev/gemini-api/docs)         | `None`       | Yes      |
 | `SECRET_KEY`    | A unique, secret key for Django project security.            | `None`       | Yes      |
 | `DEBUG`         | Enables/disables debug mode. Set to `False` in production.   | `False`      | Yes      |
 | `DATABASE_URL`  | Connection string for the database (e.g., PostgreSQL).       | `sqlite:///db.sqlite3` | No (if using default SQLite) |
