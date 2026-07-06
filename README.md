@@ -1,203 +1,273 @@
-# quizly_backend
 
-> A Python-based backend for managing quizzes, authentication, and machine learning components.
+# 🚀 Quizly Backend API
 
-![GitHub stars](https://img.shields.io/github/stars/NicolausFeldtmann/quizly_backend?style=for-the-badge&logo=github) ![GitHub forks](https://img.shields.io/github/forks/NicolausFeldtmann/quizly_backend?style=for-the-badge&logo=github) ![GitHub issues](https://img.shields.io/github/issues/NicolausFeldtmann/quizly_backend?style=for-the-badge&logo=github) ![Last commit](https://img.shields.io/github/last-commit/NicolausFeldtmann/quizly_backend?style=for-the-badge&logo=github) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+<div align="center">
 
-## 📑 Table of Contents
+[![GitHub stars](https://img.shields.io/github/stars/NicolausFeldtmann/quizly_backend?style=for-the-badge)](https://github.com/NicolausFeldtmann/quizly_backend/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/NicolausFeldtmann/quizly_backend?style=for-the-badge)](https://github.com/NicolausFeldtmann/quizly_backend/network)
+[![GitHub issues](https://img.shields.io/github/issues/NicolausFeldtmann/quizly_backend?style=for-the-badge)](https://github.com/NicolausFeldtmann/quizly_backend/issues)
+[![GitHub license](https://img.shields.io/github/license/NicolausFeldtmann/quizly_backend?style=for-the-badge)](LICENSE)
 
-- [Description](#description)
-- [Key Features](#key-features)
-- [Use Cases](#use-cases)
-- [Tech Stack](#tech-stack)
-- [Quick Start](#quick-start)
-- [Key Dependencies](#key-dependencies)
-- [Project Structure](#project-structure)
-- [Development Setup](#development-setup)
-- [Contributors](#contributors)
-- [Contributing](#contributing)
+**A robust and scalable backend API for the Quizly application, powering user authentication, quiz creation, question management, and score tracking.**
 
-## 📝 Description
+</div>
 
-quizly_backend is a Python-based server application designed to manage quiz delivery and user sessions. The system organizes its business logic into distinct application modules, separating identity management from quiz administration to maintain a clean and extensible codebase. It provides a structured foundation for developers looking to serve educational content with backend support for complex user flows.
+## 📖 Overview
+https://github.com/NicolausFeldtmann/quizly_backend/
+The Quizly Backend API serves as the central data and logic hub for the Quizly application. Built with Django and Django REST Framework, it provides a secure and efficient set of RESTful endpoints to manage users, quizzes, questions, answers, and user performance. This backend is designed to be highly extensible and ready for integration with a variety of frontend clients (web, mobile, desktop).
 
-## ✨ Key Features
+## ✨ Features
 
-- **🔐 Dedicated User Authentication** — Manages user access control, registration, and session states securely through the auth_app module.
-- **📝 Modular Quiz Administration** — Handles quiz structures, questions, and submission processing within the specialized quizzes_app codebase.
-- **⚙️ Django Management Interface** — Uses the standard manage.py entry point to run development servers, manage database schemas, and execute administrative commands.
-- **🧠 Computational Evaluation Support** — Integrates PyTorch, TensorFlow, and NumPy to support analytical grading and machine learning model evaluations on quiz data.
-
-## 🎯 Use Cases
-
-- Serving as a backend API for web-based e-learning portals that require structured user authentication and exam management.
-- Powering intelligent tutoring systems that process complex student answers using pre-trained machine learning models.
+-   🎯 **User Authentication & Authorization**: Secure user registration, login, and token-based authentication (likely JWT or Django's built-in token system based on `auth_app`).
+-   📝 **Quiz Management**: Create, retrieve, update, and delete quizzes with various categories and difficulty levels.
+-   ❓ **Question & Answer Handling**: Define multiple-choice questions, associate them with quizzes, and manage correct answers.
+-   📊 **User Score Tracking**: Record and retrieve user scores for completed quizzes.
+-   🔗 **RESTful API Interface**: Clean and well-structured API endpoints for seamless frontend integration.
+-   🔒 **Secure & Scalable**: Designed with security best practices and built on a robust framework for scalability.
 
 ## 🛠️ Tech Stack
 
-- 🐍 **Python**
+**Backend:**
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
+[![Django REST Framework](https://img.shields.io/badge/DRF-A71C0F?style=for-the-badge&logo=django-rest-framework&logoColor=white)](https://www.django-rest-framework.org/)
 
-**Notable libraries:** NumPy, PyTorch/TensorFlow
+**Database:**
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/) (Recommended for production)
+[![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/index.html) (Default for development)
 
-## ⚡ Quick Start
+**Tools:**
+[![Pip](https://img.shields.io/badge/pip-2B3B48?style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org/project/pip/)
+[![Virtualenv](https://img.shields.io/badge/virtualenv-337F39?style=for-the-badge&logo=python&logoColor=white)](https://virtualenv.pypa.io/en/latest/)
 
-> The project is tested with Python 3.12.x. Using a different Python version can lead to dependency resolution errors such as the Triton or Python-version mismatch you saw.
+## 🚀 Quick Start
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/NicolausFeldtmann/quizly_backend.git
+Follow these steps to get the Quizly Backend API up and running on your local machine.
 
-# 2. Create and activate a virtual environment with Python 3.12
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip setuptools wheel
+### Prerequisites
+-   **Python 3.12 or higher: Ensure you have Python 3.12 + installed.
+-   **pip**: Python package installer (comes with Python).
+-   **virtualenv**: Recommended for managing project dependencies.
+-   **PostgreSQL (Optional)**: If you plan to use PostgreSQL, ensure it's installed and running. Otherwise, SQLite will be used by default.
 
-# 3. Install PyTorch first, matching your hardware
-# CPU-only (recommended for most local setups):
-pip install torch==2.12.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
-# CUDA 13 (GPU):
-#   pip install --index-url https://download.pytorch.org/whl/cu13 torch==2.12.1
+### Installation
 
-# 4. Install the remaining Python dependencies
-pip install -r requirements.txt
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/NicolausFeldtmann/quizly_backend.git
+    cd quizly_backend
+    ```
 
-# 5. Apply database migrations and start the project
-python manage.py migrate
-python manage.py runserver
-```
+2.  **Create and activate a virtual environment**
+    ```bash
+    python -m venv venv
+    # On Windows
+    .\venv\Scripts\activate
+    # On macOS/Linux
+    source venv/bin/activate
+    ```
 
-## 📦 Key Dependencies
+3.  **Install dependencies**
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  **Install "ffmpeg"**
+    - For Windows
+    ```
+    Download from https://ffmpeg.org/download.html
+    Unzip in "C:\ffmpeg" and add to path.
+    ```
+    - For MAC
+    ```
+    Install "Homebrew", if not allready installed: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    Install "ffmpeg": brew install ffmpeg
+    ```
+    - For Linux
+    ```
+    sudo apt install ffmpeg
+    ```
 
-```
-annotated-types: 0.7.0
-anyio: 4.14.0
-asgiref: 3.11.1
-certifi: 2026.6.17
-cffi: 2.0.0
-charset-normalizer: 3.4.7
-cryptography: 49.0.0
-distro: 1.9.0
-Django: 6.0.6
-django-cors-headers: 4.9.0
-djangorestframework: 3.17.1
-djangorestframework_simplejwt: 5.5.1
-```
+5.  **Environment setup**
+    Create a `.env` file in the project root based on a potential `.env.example` (or common Django settings) to store sensitive configuration.
+    ```bash
+    cp .env.example .env # If .env.example existed, otherwise create manually
+    ```
+    Configure your environment variables in `.env`. At a minimum, you'll need:
+    ```ini
+    GOOGLE_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at https://ai.google.dev/gemini-api/docs
+    SECRET_KEY='your_secret_key_here'
+    DEBUG=True for development, False for production
+    ```
+    If not using PostgreSQL, Django will default to SQLite, and `DATABASE_URL` is not strictly required in `.env` for initial setup.
+
+6.  **Database setup**
+    Apply database migrations to set up the schema.
+    ```bash
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+    You might also want to create a superuser for accessing the Django admin interface:
+    ```bash
+    python manage.py createsuperuser
+    ```
+
+7.  **Start development server**
+    ```bash
+    python manage.py runserver
+    ```
+
+8.  **Access the API**
+    The API will be running at `http://localhost:8000/`. You can access the Django Admin at `http://localhost:8000/admin/`.
 
 ## 📁 Project Structure
 
 ```
-.
-├── auth_app
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── api
-│   │   ├── authentications.py
-│   │   ├── serializers.py
-│   │   ├── urls.py
-│   │   └── views.py
-│   ├── apps.py
-│   ├── migrations
-│   │   └── __init__.py
-│   ├── models.py
-│   ├── tests.py
-│   └── views.py
-├── core
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── manage.py
-├── pyvenv.cfg
-├── quizzes_app
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── api
-│   │   ├── permissions.py
-│   │   ├── serializers.py
-│   │   ├── urls.py
-│   │   └── views.py
-│   ├── apps.py
-│   ├── migrations
-│   │   ├── 0001_initial.py
-│   │   └── __init__.py
-│   ├── models.py
-│   ├── tests.py
-│   ├── utils.py
-│   └── views.py
-├── requirements.txt
-└── share
-    ├── bash-completion
-    │   └── completions
-    │       └── yt-dlp
-    ├── doc
-    │   └── yt_dlp
-    │       └── README.txt
-    ├── fish
-    │   └── vendor_completions.d
-    │       └── yt-dlp.fish
-    ├── man
-    │   └── man1
-    │       ├── isympy.1
-    │       └── yt-dlp.1
-    └── zsh
-        └── site-functions
-            └── _yt-dlp
+quizly_backend/
+├── .gitignore              # Specifies intentionally untracked files to ignore
+├── README.md               # Project documentation
+├── auth_app/               # Django app for user authentication and authorization
+│   ├── migrations/         # Database migration files for auth models
+│   ├── admin.py            # Admin interface configuration for auth models
+│   ├── apps.py             # App configuration
+│   ├── models.py           # Database models for users, tokens, etc.
+│   ├── views.py            # API views for authentication endpoints
+│   └── urls.py             # URL routing for auth_app API endpoints
+├── core/                   # Main project configuration and global settings
+│   ├── __init__.py         # Python package marker
+│   ├── settings.py         # Main Django settings file
+│   ├── urls.py             # Root URL routing for the entire project
+│   └── wsgi.py             # WSGI configuration for production deployment
+├── manage.py               # Django's command-line utility
+├── pyvenv.cfg              # Virtual environment configuration
+├── quizzes_app/            # Django app for managing quizzes, questions, and scores
+│   ├── migrations/         # Database migration files for quiz models
+│   ├── admin.py            # Admin interface configuration for quiz models
+│   ├── apps.py             # App configuration
+│   ├── models.py           # Database models for quizzes, questions, answers, scores
+│   ├── views.py            # API views for quiz and question endpoints
+│   └── urls.py             # URL routing for quizzes_app API endpoints
+├── requirements.txt        # List of Python dependencies
+└── share/                  # (Potentially) Shared utilities, static files, or documentation
 ```
 
-## 🛠️ Development Setup
+## ⚙️ Configuration
 
-### Python
-1. Install Python 3.12.x.
-2. Create a virtual environment.
-3. Activate the environment.
-4. Install PyTorch first.
-5. Install the remaining requirements.
-6. Start the project.
+### Environment Variables
+Sensitive information and environment-specific settings should be managed via environment variables, typically loaded from a `.env` file.
 
-- Windows:
-```powershell
-py -3.12 -m venv .venv
-.venv\Scripts\activate
-python -m pip install --upgrade pip setuptools wheel
-pip install torch==2.12.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
-```
+| Variable        | Description                                                  | Default      | Required |
+|-----------------|--------------------------------------------------------------|--------------|----------|
+| `GOOGLE_API_KEY`| Your Google Gemini API Key. [(ai.google.dev)](https://ai.google.dev/gemini-api/docs)         | `None`       | Yes      |
+| `SECRET_KEY`    | A unique, secret key for Django project security.            | `None`       | Yes      |
+| `DEBUG`         | Enables/disables debug mode. Set to `False` in production.   | `False`      | Yes      |
 
-- Unix/MacOS:
+### Configuration Files
+-   `core/settings.py`: The main Django settings file where you configure installed apps, middleware, database connections, static files, etc.
+-   `core/urls.py`: The root URL configuration, which includes URLs from individual apps (`auth_app`, `quizzes_app`).
+-   `[app_name]/urls.py`: Individual app-specific URL configurations.
+
+## 🔧 Development
+
+### Available Scripts
+| Command                            | Description                                     |
+|------------------------------------|-------------------------------------------------|
+| `python manage.py runserver`       | Starts the Django development server.           |
+| `python manage.py makemigrations`  | Creates new database migrations based on model changes. |
+| `python manage.py migrate`         | Applies pending database migrations.            |
+| `python manage.py createsuperuser` | Creates an administrative user for the Django admin. |
+| `python manage.py shell`           | Opens an interactive Python shell with Django context. |
+
+### Development Workflow
+1.  Ensure your virtual environment is activated (`source venv/bin/activate`).
+2.  Make changes to your Python code (models, views, serializers).
+3.  If you modify database models, run `python manage.py makemigrations` and `python manage.py migrate`.
+4.  Restart the development server if you change `settings.py` or new code doesn't reflect immediately.
+
+## 🧪 Testing
+
+The project uses Django's built-in testing framework.
+
 ```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip setuptools wheel
-pip install torch==2.12.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+# Run all tests
+python manage.py test
+
+# Run tests for a specific app (e.g., auth_app)
+python manage.py test auth_app
 ```
 
-## 👥 Contributors
+## 🚀 Deployment
 
-Thanks to everyone who has contributed to this project:
+### Production Build
+Django projects don't have a "build" step like frontend applications. Deployment typically involves:
+1.  Installing dependencies in a production environment.
+2.  Configuring `settings.py` for production (e.g., `DEBUG=False`, `ALLOWED_HOSTS`, static file settings).
+3.  Running `python manage.py collectstatic` to gather static files.
+4.  Running `python manage.py migrate` to ensure the database schema is up to date.
 
-<p align="left">
-<a href="https://github.com/NicolausFeldtmann" title="NicolausFeldtmann"><img src="https://avatars.githubusercontent.com/u/175417512?v=4&s=64" width="64" height="64" alt="NicolausFeldtmann" style="border-radius:50%" /></a>
-</p>
+### Deployment Options
+-   **WSGI Server**: Use a production-ready WSGI server like Gunicorn or uWSGI.
+-   **Web Server**: Use a web server like Nginx or Apache to serve static files and proxy requests to the WSGI server.
+-   **Cloud Platforms**: Deploy to platforms like Heroku, AWS Elastic Beanstalk, Google Cloud App Engine, or a custom VPS.
 
-[See the full list of contributors →](https://github.com/NicolausFeldtmann/quizly_backend/graphs/contributors)
+## 📚 API Reference
 
-## 👥 Contributing
+The Quizly Backend API provides a set of RESTful endpoints. Documentation for these endpoints (e.g., using `drf-yasg` or `Django REST Swagger`) would typically be found here if generated.
 
-Contributions are welcome! Here's the standard flow:
+### Authentication
+-   Users authenticate by sending credentials to a login endpoint (e.g., `/api/auth/login/`) to receive an authentication token.
+-   This token must be included in the `Authorization` header (`Bearer <token>` or `Token <token>`) for all protected endpoints.
 
-1. **Fork** the repository
-2. **Clone** your fork: `git clone https://github.com/NicolausFeldtmann/quizly_backend.git`
-3. **Branch**: `git checkout -b feature/your-feature`
-4. **Commit**: `git commit -m 'feat: add some feature'`
-5. **Push**: `git push origin feature/your-feature`
-6. **Open** a pull request
+### Endpoints
+**Authentication (`/api/auth/`)**
+-   `POST /api/auth/register/`: Register a new user.
+-   `POST /api/auth/login/`: Authenticate and receive a token.
+-   `POST /api/auth/logout/`: Invalidate the current user's token.
+-   `GET /api/auth/user/`: Retrieve the authenticated user's profile.
 
-Please follow the existing code style and include tests for new behavior where applicable.
+**Quizzes (`/api/quizzes/`)**
+-   `GET /api/quizzes/`: List all available quizzes.
+-   `POST /api/quizzes/`: Create a new quiz (requires authentication).
+-   `GET /api/quizzes/{id}/`: Retrieve a specific quiz and its questions.
+-   `PUT /api/quizzes/{id}/`: Update a quiz (requires authentication).
+-   `DELETE /api/quizzes/{id}/`: Delete a quiz (requires authentication).
+
+**Questions (`/api/questions/`)**
+-   `GET /api/quizzes/{quiz_id}/questions/`: List questions for a specific quiz.
+-   `POST /api/quizzes/{quiz_id}/questions/`: Add a question to a quiz (requires authentication).
+
+**Scores (`/api/scores/`)**
+-   `POST /api/quizzes/{quiz_id}/submit-answers/`: Submit answers for a quiz and record the score.
+-   `GET /api/users/{user_id}/scores/`: Retrieve scores for a specific user.
+
+*(Note: Actual endpoint paths and methods may vary based on `urls.py` and `views.py` implementations.)*
+
+## 🤝 Contributing
+
+We welcome contributions! If you're interested in improving Quizly Backend, please follow these general guidelines:
+
+1.  Fork the repository.
+2.  Create a new branch for your feature or bug fix.
+3.  Make your changes and ensure tests pass.
+4.  Submit a pull request with a clear description of your changes.
+
+### Development Setup for Contributors
+The development setup is the same as the Quick Start guide. Please ensure your code adheres to PEP 8 guidelines.
+
+
+## 🙏 Acknowledgments
+
+-   Built with **Python** and the **Django** framework.
+-   Leverages **Django REST Framework** for powerful API creation.
+-   Powered by the strong community and extensive ecosystem of Python.
+
+## 📞 Support & Contact
+
+-   🐛 Issues: [GitHub Issues](https://github.com/NicolausFeldtmann/quizly_backend/issues)
 
 ---
+
+<div align="center">
+
+Made by [NicolausFeldtmann](https://github.com/NicolausFeldtmann)
+
+</div>
