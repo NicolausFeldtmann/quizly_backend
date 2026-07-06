@@ -94,7 +94,7 @@ Follow these steps to get the Quizly Backend API up and running on your local ma
     ```
     Configure your environment variables in `.env`. At a minimum, you'll need:
     ```ini
-    GENAI_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at https://ai.google.dev/gemini-api/docs
+    GENAI_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at [Google AI for Developers](https://ai.google.dev/gemini-api/docs)
     SECRET_KEY='your_secret_key_here'
     DEBUG=True for development, False for production
     ```
@@ -183,7 +183,7 @@ Sensitive information and environment-specific settings should be managed via en
 ### Development Workflow
 1.  Ensure your virtual environment is activated (`source venv/bin/activate`).
 2.  Make changes to your Python code (models, views, serializers).
-3.  If you modify database models, run `python manage.py makemigrations [app_name]` and `python manage.py migrate`.
+3.  If you modify database models, run `python manage.py makemigrations` and `python manage.py migrate`.
 4.  Restart the development server if you change `settings.py` or new code doesn't reflect immediately.
 
 ## 🧪 Testing
