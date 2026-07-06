@@ -10,21 +10,26 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR.parent / ".env")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#4#a!i*tacdob!$99=&ou!p=&9y2o1j2_i6)b$r^()s!%4!yty'
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-#4#a!i*tacdob!$99=&ou!p=&9y2o1j2_i6)b$r^()s!%4!yty")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True").lower() in {"1", "true", "yes", "on"}
+
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
 
 ALLOWED_HOSTS = []
 

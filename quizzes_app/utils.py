@@ -3,6 +3,7 @@ import os
 import tempfile
 import subprocess
 import shutil
+from pathlib import Path
 from django.core.exceptions import ValidationError
 from google import genai
 import yt_dlp
@@ -11,7 +12,7 @@ import re
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qs
 
-load_dotenv()
+load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
 
 def extract_youtube_info(url):
     """Function to extract title, description and audio of YouTube clip."""
@@ -77,7 +78,11 @@ def generate_quiz(transcript):
     """Asures that created json starts and ends correctly to guarantees unifrom structure. """
 
     try:
-        client = genai.Client(api_key=os.getenv('GOOGLE_API_KEY'))
+        api_key = os.getenv('GOOGLE_API_KEY')
+        if not api_key:
+            raise ValidationError("GOOGLE_API_KEY is not configured in the .env file.")
+
+        client = genai.Client(api_key=api_key)
 
         prompt = f"""
             Based on the following transcript, generate a quiz in valid JSON format.
