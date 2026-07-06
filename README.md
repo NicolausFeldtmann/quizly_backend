@@ -94,7 +94,7 @@ Follow these steps to get the Quizly Backend API up and running on your local ma
     ```
     Configure your environment variables in `.env`. At a minimum, you'll need:
     ```ini
-    GENAI_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at [Google AI for Developers](https://ai.google.dev/gemini-api/docs)
+    GENAI_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at [ai.google.dev](https://ai.google.dev/)
     SECRET_KEY='your_secret_key_here'
     DEBUG=True for development, False for production
     ```
