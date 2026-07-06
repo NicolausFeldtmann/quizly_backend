@@ -160,9 +160,6 @@ Sensitive information and environment-specific settings should be managed via en
 | `GENAI_API_KEY` | Your Google Gemini API Key. [(ai.google.dev)](https://ai.google.dev/gemini-api/docs)         | `None`       | Yes      |
 | `SECRET_KEY`    | A unique, secret key for Django project security.            | `None`       | Yes      |
 | `DEBUG`         | Enables/disables debug mode. Set to `False` in production.   | `False`      | Yes      |
-| `DATABASE_URL`  | Connection string for the database (e.g., PostgreSQL).       | `sqlite:///db.sqlite3` | No (if using default SQLite) |
-| `ALLOWED_HOSTS` | Comma-separated list of hosts this Django site can serve.    | `['*']` (dev) | Yes (prod) |
-| `CORS_ORIGIN_WHITELIST` | Comma-separated list of allowed origins for CORS. | `[]` (restrictive) | No |
 
 ### Configuration Files
 -   `core/settings.py`: The main Django settings file where you configure installed apps, middleware, database connections, static files, etc.
