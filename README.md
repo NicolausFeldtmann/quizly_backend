@@ -94,7 +94,7 @@ Follow these steps to get the Quizly Backend API up and running on your local ma
     ```
     Configure your environment variables in `.env`. At a minimum, you'll need:
     ```ini
-    GENAI_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at https://ai.google.dev/gemini-api/docs
+    GOOGLE_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at https://ai.google.dev/gemini-api/docs
     SECRET_KEY='your_secret_key_here'
     DEBUG=True for development, False for production
     ```
@@ -157,7 +157,7 @@ Sensitive information and environment-specific settings should be managed via en
 
 | Variable        | Description                                                  | Default      | Required |
 |-----------------|--------------------------------------------------------------|--------------|----------|
-| `GENAI_API_KEY` | Your Google Gemini API Key. [(ai.google.dev)](https://ai.google.dev/gemini-api/docs)         | `None`       | Yes      |
+| `GOOGLE_API_KEY`| Your Google Gemini API Key. [(ai.google.dev)](https://ai.google.dev/gemini-api/docs)         | `None`       | Yes      |
 | `SECRET_KEY`    | A unique, secret key for Django project security.            | `None`       | Yes      |
 | `DEBUG`         | Enables/disables debug mode. Set to `False` in production.   | `False`      | Yes      |
 
@@ -253,9 +253,6 @@ We welcome contributions! If you're interested in improving Quizly Backend, plea
 ### Development Setup for Contributors
 The development setup is the same as the Quick Start guide. Please ensure your code adheres to PEP 8 guidelines.
 
-## 📄 License
-
-This project is licensed under the **[MISSING_LICENSE_INFORMATION]** - see the `LICENSE` file for details (TODO: Add LICENSE file).
 
 ## 🙏 Acknowledgments
 
@@ -271,8 +268,6 @@ This project is licensed under the **[MISSING_LICENSE_INFORMATION]** - see the `
 
 <div align="center">
 
-**⭐ Star this repo if you find it helpful!**
-
-Made with by [NicolausFeldtmann](https://github.com/NicolausFeldtmann)
+Made by [NicolausFeldtmann](https://github.com/NicolausFeldtmann)
 
 </div>
