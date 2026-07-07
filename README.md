@@ -90,7 +90,7 @@ Follow these steps to get the Quizly Backend API up and running on your local ma
 5.  **Environment setup**
     Create a `.env` file in the project root based on a potential Use comand `cp .env.example .env` to create `.env` file from template.
     ```bash
-    cp .env.example .env # If .env.example existed, otherwise create manually
+    cp .env.example .env # If you want to use the template in `.env.example` file.
     ```
     Configure your environment variables in `.env`. At a minimum, you'll need:
     ```ini
