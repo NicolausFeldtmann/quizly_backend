@@ -27,7 +27,7 @@ load_dotenv(BASE_DIR / ".env")
 SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-#4#a!i*tacdob!$99=&ou!p=&9y2o1j2_i6)b$r^()s!%4!yty")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "True").lower() in {"1", "true", "yes", "on"}
+DEBUG = True
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
 
