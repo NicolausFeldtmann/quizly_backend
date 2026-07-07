@@ -12,7 +12,7 @@ import re
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qs
 
-load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 def extract_youtube_info(url):
     """Function to extract title, description and audio of YouTube clip."""
