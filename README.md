@@ -88,13 +88,13 @@ Follow these steps to get the Quizly Backend API up and running on your local ma
     ```
 
 5.  **Environment setup**
-    Create a `.env` file in the project root based on a potential `.env.example` (or common Django settings) to store sensitive configuration.
+    Create a `.env` file in the project root based on a potential Use coand `cp .env.example .env` to create `.env` file from template.
     ```bash
     cp .env.example .env # If .env.example existed, otherwise create manually
     ```
     Configure your environment variables in `.env`. At a minimum, you'll need:
     ```ini
-    GOOGLE_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at https://ai.google.dev/gemini-api/docs
+    GOOGLE_API_KEY=your_google_gemini_api_key_here (Generate your Gemini API Key at https://ai.google.dev/gemini-api/docs)
     SECRET_KEY='your_secret_key_here'
     DEBUG=True for development, False for production
     ```
