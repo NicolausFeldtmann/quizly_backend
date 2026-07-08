@@ -14,6 +14,7 @@ class QuestionsSerializer(serializers.ModelSerializer):
 
 class QuizzSerializer(serializers.ModelSerializer):
     """Serializer class to handle and validate requests dedicated to quizes."""
+
     url = serializers.URLField(write_only=True, required=False)
     video_url = serializers.URLField(required=False)
     questions = QuestionsSerializer(many=True, read_only=True)
@@ -24,9 +25,12 @@ class QuizzSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "created_at", "updated_at", "questions"]
 
     def validate(self, attrs):
-        """Checks if incommig request contains 'url'."""
-        """Normalizes YouTube url format."""
-        """Modifies 'url' to needed 'video_url' and returns modifed data."""
+        """
+        Checks if incommig request contains 'url'.
+        Normalizes YouTube url format.
+        Modifies 'url' to needed 'video_url' and returns modifed data.
+        """
+
         if 'url' in attrs:
             try:
                 normalized_url = normalize_yt_url(attrs['url'])
@@ -89,6 +93,7 @@ class QuizzSerializer(serializers.ModelSerializer):
 
 class SingleQuizzSerializer(serializers.ModelSerializer):
     """Serializer class to handle single quiz rquests."""
+    
     questions = QuestionsSerializer(many=True, read_only=True)
 
     class Meta:

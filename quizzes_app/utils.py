@@ -75,75 +75,103 @@ def transcribe_yt_video(url):
 
 def generate_quiz(transcript):
     """Generates quiz by using precise directions in prompt variable."""
-    """Asures that created json starts and ends correctly to guarantees unifrom structure. """
-
     try:
-        api_key = os.getenv('GOOGLE_API_KEY')
-        if not api_key:
-            raise ValidationError("GOOGLE_API_KEY is not configured in the .env file.")
-
+        api_key = _get_api_key()
         client = genai.Client(api_key=api_key)
-
-        prompt = f"""
-            Based on the following transcript, generate a quiz in valid JSON format.
-            The quiz must follow this exact structure:
-            {{
-                "title": "Create a concise quiz title based on the topic of the transcript.",
-                "description": "Summarize the transcriot in no more than 150 characters. Do not include any quiz questions or answers.",
-                "questions": [
-                    {{
-                        "question_title": "The question goes here.",
-                        "question_options": ["Option A", "Option B", "Option C", "Option D"],
-                        "answer": "the correct answer from the above options"
-                    }},
-                    ...
-                    (exactly 10 questions)
-                ]
-            }}
-            Requirements:
-            - Each question must have exactly 4 distinct answer options.
-            - Only one correct answer is allowed per question, and it must be present in 'question_options'.
-            - The output must be valid JSON and parsable as-is (e.g., using Python's json.loads).
-            - Do not include explanations, comments, or any text qoutside the JSON.
-            - Do not wrap the JSON in markdown code blocks or backticks.
-            - Return ONLY the raw JSON object, nothing else.
-
-            TRANSCRIPT:
-            {transcript}
-        """
-        
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt
-        )
-
-        response_text = response.text.strip()
-
-        if response_text.startswith("```json"):
-            response_text = response_text[7:]
-        elif response_text.startswith("```"):
-            response_text = response_text[:-3]
-
-        if response_text.endswith("```"):
-            response_text = response_text[:-3]
-
-        response_text = response_text.strip()
-
-        print("Cleaned API Response:")
-        print(response_text[:500])
-
-        quiz_data = json.loads(response_text)
-
-        if 'title' not in quiz_data or 'description' not in quiz_data or 'questions' not in quiz_data:
-            raise ValidationError("Invalid quiz structure returned fro API")
+        prompt = _create_prompt(transcript)
+        response = _call_gemini_api(client, prompt)
+        response_text = _clean_response(response.text)
+        quiz_data = _parse_json_response(response_text)
+        _validate_quiz_structure(quiz_data)
         return quiz_data
-    except json.JSONDecodeError as e:
-        print(f"JSON Decode Error: {str(e)}")
-        print(f"Response text: {response_text[:1000]}")
-        raise ValidationError(f"Error paring quiz JSON: {str(e)}")
     except Exception as e:
         print(f"General Error: {str(e)}")
         raise ValidationError(f"Error generating quiz: {str(e)}")
+
+
+def _get_api_key():
+    """Retrieves and validates the Google API key."""
+    api_key = os.getenv('GOOGLE_API_KEY')
+    if not api_key:
+        raise ValidationError("GOOGLE_API_KEY is not configured in the .env file.")
+    return api_key
+
+
+def _create_prompt(transcript):
+    """Creates the prompt for quiz generation."""
+    return f"""
+        Based on the following transcript, generate a quiz in valid JSON format.
+        The quiz must follow this exact structure:
+        {{
+            "title": "Create a concise quiz title based on the topic of the transcript.",
+            "description": "Summarize the transcript in no more than 150 characters. Do not include any quiz questions or answers.",
+            "questions": [
+                {{
+                    "question_title": "The question goes here.",
+                    "question_options": ["Option A", "Option B", "Option C", "Option D"],
+                    "answer": "the correct answer from the above options"
+                }},
+                ...
+                (exactly 10 questions)
+            ]
+        }}
+        Requirements:
+        - Each question must have exactly 4 distinct answer options.
+        - Only one correct answer is allowed per question, and it must be present in 'question_options'.
+        - The output must be valid JSON and parsable as-is (e.g., using Python's json.loads).
+        - Do not include explanations, comments, or any text outside the JSON.
+        - Do not wrap the JSON in markdown code blocks or backticks.
+        - Return ONLY the raw JSON object, nothing else.
+
+        TRANSCRIPT:
+        {transcript}
+    """
+
+
+def _call_gemini_api(client, prompt):
+    """Calls the Gemini API with the given prompt."""
+    return client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=prompt
+    )
+
+
+def _clean_response(response_text):
+    """Cleans the API response by removing markdown code blocks."""
+    response_text = response_text.strip()
+    
+    if response_text.startswith("```json"):
+        response_text = response_text[7:]
+    elif response_text.startswith("```"):
+        response_text = response_text[3:]
+    
+    if response_text.endswith("```"):
+        response_text = response_text[:-3]
+    
+    response_text = response_text.strip()
+    
+    print("Cleaned API Response:")
+    print(response_text[:500])
+    
+    return response_text
+
+
+def _parse_json_response(response_text):
+    """Parses the JSON response from the API."""
+    try:
+        return json.loads(response_text)
+    except json.JSONDecodeError as e:
+        print(f"JSON Decode Error: {str(e)}")
+        print(f"Response text: {response_text[:1000]}")
+        raise ValidationError(f"Error parsing quiz JSON: {str(e)}")
+
+
+def _validate_quiz_structure(quiz_data):
+    """Validates that the quiz has the required structure."""
+    required_keys = ['title', 'description', 'questions']
+    if not all(key in quiz_data for key in required_keys):
+        raise ValidationError("Invalid quiz structure returned from API")
+
 
 def normalize_yt_url(url):
     video_id_pattern = r'(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)'

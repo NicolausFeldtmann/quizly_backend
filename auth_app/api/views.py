@@ -10,22 +10,22 @@ class RegistrationView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        """Function to handle POST-request for account crewation."""
-        """Returns statuscode depending of validation status of given data."""
+        """ 
+        Function to handle POST-request for account crewation.
+        Returns statuscode depending of validation status of given data.
+        """
         serializer = RegistrationSerializer(data=request.data)
 
-        data = {}
-        if serializer.is_valid():
-            saved_account = serializer.save()
-
-            data = {
-                'username': saved_account.username,
-                'email': saved_account.email,
-                'user_id': saved_account.pk
-            }
-            return Response(data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_BAD_REQUEST)
+        saved_account = serializer.save()
+        data = {
+            'username': saved_account.username,
+            'email': saved_account.email,
+            'user_id': saved_account.pk
+        }
+        return Response(data, status=status.HTTP_201_CREATED)
+            
 
 class CookieTokenObtainPairView(TokenObtainPairView):
     """View to set access and refresh cookies if login was successfull."""
@@ -88,8 +88,10 @@ class CookieRefreshView(TokenRefreshView):
         return response
 
 class LogoutView(APIView):
-    """View to handle user logout."""
-    """Eraseses access and refresh cookie of user."""
+    """
+    View to handle user logout.
+    Eraseses access and refresh cookie of user.
+    """
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):

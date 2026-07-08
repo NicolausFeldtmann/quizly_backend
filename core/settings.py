@@ -141,7 +141,6 @@ STATIC_URL = 'static/'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'auth_app.api.authentications.CookieAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication', 
     ],
     'DEFAULT_PERMISSION_CLASSES': {
         'rest_framework.permissions.IsAuthenticated'

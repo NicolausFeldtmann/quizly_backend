@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class QuizzModel(models.Model):
     """Model class for quizes and all needed fields and fieldtypes"""
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='quizzes', default="")
     title = models.CharField(max_length=50, blank=True, default="")
     description = models.TextField(blank=True, default="")
@@ -16,6 +17,7 @@ class QuizzModel(models.Model):
 
 class QuestionsModel(models.Model):
     """Model class for questions in quiz and all needed fields and fieldtypes"""
+    
     quizz = models.ForeignKey(QuizzModel, on_delete=models.CASCADE, related_name='questions')
     question_title = models.CharField(max_length=30, default="")
     question_options = models.JSONField(max_length=500, default=list)
