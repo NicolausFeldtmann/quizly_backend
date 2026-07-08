@@ -31,7 +31,8 @@ dist/
 
 *.swp
 *.swo
-.env
 
+.env
+.env.*
 *.key
 *.pem
